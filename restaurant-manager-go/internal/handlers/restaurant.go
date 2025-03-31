@@ -13,6 +13,13 @@ type RestaurantHandler struct {
 	repo *repository.RestaurantRepository
 }
 
+type CreateRestaurantRequest struct {
+	Name         string `json:"name" binding:"required"`
+	Address      string `json:"address" binding:"required"`
+	LimitUsers   bool   `json:"limit_users"`
+	MaxCustomers int    `json:"max_customers" binding:"required"`
+}
+
 func NewRestaurantHandler(database *db.Database) *RestaurantHandler {
 	return &RestaurantHandler{
 		repo: repository.NewRestaurantRepository(database),
@@ -20,13 +27,20 @@ func NewRestaurantHandler(database *db.Database) *RestaurantHandler {
 }
 
 func (h *RestaurantHandler) CreateRestaurant(c *gin.Context) {
-	var newRestaurant models.Restaurant
+	var request CreateRestaurantRequest
 
-	//Parse JSON into newRestaurant var
-	if err := c.ShouldBindJSON(&newRestaurant); err != nil {
+	//Parse JSON into request var
+	if err := c.ShouldBindJSON(&request); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+	var newRestaurant models.Restaurant
+
+	newRestaurant.Name = request.Name
+	newRestaurant.Address = request.Address
+	newRestaurant.LimitUsers = request.LimitUsers
+	newRestaurant.MaxCustomers = request.MaxCustomers
 
 	if err := h.repo.Create(&newRestaurant); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
