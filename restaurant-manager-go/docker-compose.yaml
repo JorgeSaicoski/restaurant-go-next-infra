@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  restaurant-service:
+    build: .
+    container_name: restaurant-go
+    ports:
+      - "8082:8080"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=yourpassword
+      - DB_NAME=shared_db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    name: app-network
+    external: true
+    driver: bridge
+

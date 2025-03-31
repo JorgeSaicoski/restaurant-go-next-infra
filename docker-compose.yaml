@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  restaurant-service:
+    extends:
+      file: restaurant-manager-go/docker-compose.yaml
+      service: restaurant-service
+    networks:
+      - app-network
+
+  db:
+    extends:
+      file: infra/db/docker-compose.yaml
+      service: db
+    networks:
+      - app-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+networks:
+  app-network:
+    external: true
+
+volumes:
+  postgres_data:
+    external: true
