@@ -12,7 +12,7 @@ type Restaurant struct {
 	UpdatedAt    time.Time
 
 	// Relations
-	Staff     []RestaurantUser `gorm:"many2many:restaurant_user_restaurants;"`
-	Orders    []Order          `gorm:"foreignKey:RestaurantID"`
-	MenuItems []MenuItem       `gorm:"foreignKey:RestaurantID"`
+	Staff     []User     `gorm:"many2many:restaurant_user_restaurants;"`
+	Orders    []Order    `gorm:"foreignKey:RestaurantID"`
+	MenuItems []MenuItem `gorm:"foreignKey:RestaurantID"`
 }

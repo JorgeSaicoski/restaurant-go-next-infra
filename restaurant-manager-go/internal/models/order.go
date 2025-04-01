@@ -13,7 +13,7 @@ type Order struct {
 	UpdatedAt    time.Time
 
 	// Relations
-	Restaurant Restaurant     `gorm:"foreignKey:RestaurantID"`
-	CreatedBy  RestaurantUser `gorm:"foreignKey:CreatedByID"`
-	Items      []OrderItem    `gorm:"foreignKey:OrderID"`
+	Restaurant Restaurant  `gorm:"foreignKey:RestaurantID"`
+	CreatedBy  User        `gorm:"foreignKey:CreatedByID"`
+	Items      []OrderItem `gorm:"foreignKey:OrderID"`
 }

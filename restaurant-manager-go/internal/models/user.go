@@ -2,7 +2,7 @@ package models
 
 import "time"
 
-type RestaurantUser struct {
+type User struct {
 	ID        uint   `gorm:"primaryKey"`
 	SSOUserID string `gorm:"uniqueIndex"` // Reference to the user in SSO
 	Name      string

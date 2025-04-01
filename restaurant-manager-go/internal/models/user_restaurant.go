@@ -11,6 +11,6 @@ type RestaurantUserRestaurant struct {
 	CreatedAt        time.Time
 	UpdatedAt        time.Time
 
-	Restaurant     Restaurant     `gorm:"foreignKey:RestaurantID"`
-	RestaurantUser RestaurantUser `gorm:"foreignKey:RestaurantUserID"`
+	Restaurant     Restaurant `gorm:"foreignKey:RestaurantID"`
+	RestaurantUser User       `gorm:"foreignKey:RestaurantUserID"`
 }
