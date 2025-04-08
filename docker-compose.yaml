@@ -8,6 +8,13 @@ services:
     networks:
       - app-network
 
+  restaurant-next:
+    extends:
+      file: restaurant-manager-next/docker-compose.yaml
+      service: restaurant-next
+    networks:
+      - app-network
+
   db:
     extends:
       file: infra/db/docker-compose.yaml
@@ -17,6 +24,15 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  keycloak:
+    extends:
+      file: infra/sso/docker-compose.yaml
+      service: keycloak
+    networks:
+      - app-network
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+
 networks:
   app-network:
     external: true
@@ -24,3 +40,6 @@ networks:
 volumes:
   postgres_data:
     external: true
+  keycloak_data:
+    external: true
+

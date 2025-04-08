@@ -1,13 +1,14 @@
 version: "3.8"
 
 services:
-  nextjs:
+  restaurant-next:
+    user: root
     build: .
     command: npm run dev
     ports:
       - "3000:3000"
     volumes:
-      - ./:/app
+      - .:/app:z
       - /app/node_modules
     environment:
       - NODE_ENV=development
@@ -17,3 +18,4 @@ services:
 networks:
   app-network:
     external: true
+
