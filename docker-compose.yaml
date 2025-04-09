@@ -5,6 +5,8 @@ services:
     extends:
       file: restaurant-manager-go/docker-compose.yaml
       service: restaurant-service
+    depends_on:
+      - db
     networks:
       - app-network
 
